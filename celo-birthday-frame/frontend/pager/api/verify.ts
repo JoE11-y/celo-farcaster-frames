@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getUserIdentifier, SelfBackendVerifier } from "@selfxyz/core";
 import { ethers } from "ethers";
-import { ContractAbi, ContractAddress } from "@/data/abi";
+import { ContractAbi, ContractAddress } from "@/lib/data/abi";
 
 export default async function handler(
   req: NextApiRequest,

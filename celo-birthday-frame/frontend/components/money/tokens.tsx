@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
-import { CELO, cEUR, cREAL, cUSD, Token, USDC } from "@/data/token";
+import { CELO, cEUR, cREAL, cUSD, Token, USDC } from "@/lib/data/token";
 import { TokenIcon } from "@/components/tokens/TokenIcon";
 
 const tokens: Token[] = [

@@ -5,7 +5,7 @@ import QRCode from "react-qr-code";
 import { useAppKitAccount } from "@reown/appkit/react";
 import { generateInviteUrl } from "@/lib/helpers";
 import { useReadContract } from "wagmi";
-import { ContractAddress, ContractAbi } from "@/data/abi";
+import { ContractAddress, ContractAbi } from "@/lib/data/abi";
 import { useRouter } from 'next/navigation'
 
 export default function SuccessPage() {

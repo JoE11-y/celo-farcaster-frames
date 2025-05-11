@@ -1,7 +1,9 @@
 import { cookieStorage, createStorage, http } from "wagmi";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
-import { celoAlfajores } from "@reown/appkit/networks";
+import { base, celoAlfajores } from "@reown/appkit/networks";
 import type { AppKitNetwork } from "@reown/appkit/networks";
+
+import { farcasterFrame } from "@farcaster/frame-wagmi-connector";
 
 // Get projectId from https://cloud.reown.com
 export const projectId =
@@ -11,7 +13,13 @@ if (!projectId) {
   throw new Error("Project ID is not defined");
 }
 
-export const networks = [celoAlfajores] as [AppKitNetwork, ...AppKitNetwork[]];
+const RPC_URL =
+  process.env.NEXT_PUBLIC_RPC_URL || "https://celo-alfajores.drpc.org";
+
+export const networks = [base, celoAlfajores] as [
+  AppKitNetwork,
+  ...AppKitNetwork[]
+];
 
 //Set up the Wagmi Adapter (Config)
 export const wagmiAdapter = new WagmiAdapter({
@@ -20,10 +28,11 @@ export const wagmiAdapter = new WagmiAdapter({
   }),
   ssr: true,
   transports: {
-    [celoAlfajores.id]: http("https://celo-alfajores.drpc.org"),
+    [celoAlfajores.id]: http(RPC_URL),
   },
   projectId,
   networks,
+  connectors: [farcasterFrame()],
 });
 
 export const config = wagmiAdapter.wagmiConfig;

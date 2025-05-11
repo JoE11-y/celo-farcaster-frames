@@ -1,7 +1,7 @@
 'use client'
 import React, { useCallback, useEffect } from "react";
 import { useRouter } from 'next/navigation'
-import { ContractAddress, ContractAbi } from "@/data/abi";
+import { ContractAddress, ContractAbi } from "@/lib/data/abi";
 import { useAppKitAccount } from "@reown/appkit/react";
 import { useReadContract } from "wagmi";
 

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { CheckCircle2 } from "lucide-react";
-import { ContractAddress, ContractAbi } from "@/data/abi";
+import { ContractAddress, ContractAbi } from "@/lib/data/abi";
 import { useReadContract } from "wagmi";
 
 export default function DonationSuccessPage({ celebrantAddress }: { celebrantAddress: string }) {

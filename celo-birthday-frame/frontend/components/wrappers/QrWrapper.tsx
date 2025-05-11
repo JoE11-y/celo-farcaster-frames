@@ -1,7 +1,7 @@
 'use client';
 
 import SelfQRcodeWrapper, { SelfApp, SelfAppBuilder } from '@selfxyz/qrcode';
-import { logo } from '../../data/birthdayAppLogo';
+import { logo } from '../../lib/data/birthdayAppLogo';
 import { useRouter } from 'next/navigation';
 
 export default function QrWrapper({ address }: { address: string }) {

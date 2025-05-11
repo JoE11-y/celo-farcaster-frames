@@ -1,12 +1,12 @@
 "use client";
 
-// import dynamic from "next/dynamic";
 import React from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { wagmiAdapter, projectId, networks } from '@/config'
+import { wagmiAdapter, projectId, networks } from '@/lib/config'
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi'
 import { createAppKit } from '@reown/appkit/react'
 import { ApolloWrapper } from '@/apollo/apolloClient';
+import { PostHogProvider } from './PostHog';
 
 // Set up queryClient
 const queryClient = new QueryClient()
@@ -34,13 +34,17 @@ export const modal = createAppKit({
 
 })
 
+
 export function Providers({ children, cookies }: { children: React.ReactNode, cookies: string | null }) {
   const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig as Config, cookies)
   return (
-    <ApolloWrapper >
-      <WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      </WagmiProvider>
-    </ApolloWrapper>
+    // <PostHogProvider client={posthog}>
+    <PostHogProvider>
+      <ApolloWrapper>
+        <WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>
+          <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        </WagmiProvider>
+      </ApolloWrapper>
+    </PostHogProvider >
   );
 }

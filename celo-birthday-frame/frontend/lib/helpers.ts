@@ -1,4 +1,4 @@
-import { page_url } from "@/config";
+import { page_url } from "@/lib/config";
 import { parseUnits } from "viem";
 export const isSSRMode = typeof window === "undefined";
 

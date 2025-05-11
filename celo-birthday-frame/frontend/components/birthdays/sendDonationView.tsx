@@ -1,6 +1,6 @@
 import { FETCH_PROJECT_BY_ID } from "@/apollo/gql/gqlProjects";
 import { ProjectByIdQuery } from "@/apollo/types";
-import { ContractAddress, ContractAbi } from "@/data/abi";
+import { ContractAddress, ContractAbi } from "@/lib/data/abi";
 import { useQuery } from "@apollo/client";
 import React, { useCallback, useEffect, useState } from "react";
 import { useReadContract } from "wagmi";

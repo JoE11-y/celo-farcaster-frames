@@ -1,13 +1,13 @@
 import { Project } from "@/apollo/types";
-import { ContractAbi, ContractAddress } from "@/data/abi";
-import { getTokenAddress, Token } from "@/data/token";
+import { ContractAbi, ContractAddress } from "@/lib/data/abi";
+import { getTokenAddress, Token } from "@/lib/data/token";
 import { projectUrl } from "@/lib/helpers";
 import React, { useCallback, useEffect, useState } from "react";
 import { Address, zeroAddress } from "viem";
 import { useReadContract, useWriteContract } from "wagmi";
 import { useRouter } from "next/navigation";
 import { useAppKitAccount } from "@reown/appkit/react";
-import { TransactionLoader } from "../loader";
+import { TransactionLoader } from "../txLoader";
 import { ConnectButton } from "../buttons/ConnectButton";
 
 type Props = {

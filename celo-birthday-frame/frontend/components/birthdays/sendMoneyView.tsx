@@ -1,12 +1,12 @@
 import { Address, parseUnits } from "viem";
-import { ContractAddress, ContractAbi, IERC20Abi } from "@/data/abi";
-import { getTokenByAddress } from "@/data/token";
+import { ContractAddress, ContractAbi, IERC20Abi } from "@/lib/data/abi";
+import { getTokenByAddress } from "@/lib/data/token";
 import React, { useCallback, useEffect, useState } from "react";
 import { useReadContract, useWriteContract } from "wagmi";
 import { TokenIcon } from "../tokens/TokenIcon";
 import { useAppKitAccount } from "@reown/appkit/react";
 import { ConnectButton } from "../buttons/ConnectButton";
-import { TransactionLoader } from "../loader";
+import { TransactionLoader } from "../txLoader";
 import { rest } from "lodash";
 
 export default function SendMoneyView({ celebrantAddress, token, setStatusFn }:

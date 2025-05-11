@@ -12,13 +12,13 @@ export async function GET() {
     },
     frame: {
       version: "1",
-      name: "Birthday V2",
-      iconUrl: `${appUrl}/celosplash.png`,
+      name: "Celo Birthday Frame",
+      iconUrl: `${appUrl}/frame-logo.png`,
       homeUrl: appUrl,
-      imageUrl: `${appUrl}/tipme.png`,
+      imageUrl: `${appUrl}/frame.png`,
       buttonTitle: "Launch Frame",
-      splashImageUrl: `${appUrl}/celosplash.png`,
-      splashBackgroundColor: "#f7f7f7",
+      splashImageUrl: `${appUrl}/frame-logo.png`,
+      splashBackgroundColor: "#2D0C72",
       webhookUrl: `${appUrl}/api/webhook`,
     },
   };

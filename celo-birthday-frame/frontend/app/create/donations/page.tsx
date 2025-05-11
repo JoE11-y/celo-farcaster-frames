@@ -7,7 +7,7 @@ import ConfirmationPage from "@/components/donations/Confirmation";
 import { useRouter } from 'next/navigation'
 import { ArrowLeft } from "lucide-react";
 import { Project } from "@/apollo/types";
-import { ContractAddress, ContractAbi } from "@/data/abi";
+import { ContractAddress, ContractAbi } from "@/lib/data/abi";
 import { useAppKitAccount } from "@reown/appkit/react";
 import { useReadContract } from "wagmi";
 

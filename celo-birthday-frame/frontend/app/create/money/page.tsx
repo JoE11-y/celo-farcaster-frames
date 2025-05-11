@@ -3,10 +3,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Tokens from "@/components/money/tokens";
 import ConfirmationPage from "@/components/donations/Confirmation";
-import { Token } from "@/data/token";
+import { Token } from "@/lib/data/token";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from 'next/navigation'
-import { ContractAddress, ContractAbi } from "@/data/abi";
+import { ContractAddress, ContractAbi } from "@/lib/data/abi";
 import { useAppKitAccount } from "@reown/appkit/react";
 import { useReadContract } from "wagmi";
 

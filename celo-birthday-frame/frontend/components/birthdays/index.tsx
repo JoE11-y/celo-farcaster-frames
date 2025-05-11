@@ -1,9 +1,9 @@
 'use client'
 import React, { useState } from "react";
-import { ContractAddress, ContractAbi } from "@/data/abi";
+import { ContractAddress, ContractAbi } from "@/lib/data/abi";
 import { useCallback, useEffect } from "react";
 import { useReadContract } from "wagmi";
-import { BirthdayRecord } from "@/data/types";
+import { BirthdayRecord } from "@/lib/data/types";
 import BirthdayDonationView from "./sendDonationView";
 import SendMoneyView from "./sendMoneyView";
 import DonationSuccessPage from "./Success";
