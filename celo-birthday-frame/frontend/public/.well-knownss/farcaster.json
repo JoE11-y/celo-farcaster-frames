@@ -7,12 +7,12 @@
   "frame": {
     "version": "1",
     "name": "Celo Birthday Frame",
-    "iconUrl": "https://frames-v2.builders.garden/images/icon.png",
-    "homeUrl": "https://frames-v2.builders.garden",
-    "imageUrl": "https://frames-v2.builders.garden/images/feed.png",
-    "buttonTitle": "Press Me",
-    "splashImageUrl": "https://frames-v2.builders.garden/images/splash.png",
-    "splashBackgroundColor": "#ffffff",
-    "webhookUrl": "https://frames-v2.builders.garden/api/webhook"
+    "iconUrl": "https://celo-farcaster-frames-six.vercel.app/frame-logo.png",
+    "homeUrl": "https://celo-farcaster-frames-six.vercel.app",
+    "imageUrl": "https://celo-farcaster-frames-six.vercel.app/frame.png",
+    "buttonTitle": "Launch Frame",
+    "splashImageUrl": "https://celo-farcaster-frames-six.vercel.app/frame-logo.png",
+    "splashBackgroundColor": "#2D0C72",
+    "webhookUrl": "https://celo-farcaster-frames-six.vercel.app/api/webhook"
   }
 }
