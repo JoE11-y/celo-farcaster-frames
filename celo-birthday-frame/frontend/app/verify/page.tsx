@@ -11,14 +11,13 @@ import { ContractAbi, ContractAddress } from '@/lib/data/abi';
 import { BirthdayRecord } from '@/lib/data/types';
 import { useRouter } from 'next/navigation';
 import { useFrame } from '@/providers/FrameProvider';
-import { useSignIn } from '@/hooks/useSignIn';
-import { useUser } from '@/hooks/useUser';
+import ConnectButtonFarcaster from '@/components/buttons/ConnectButtonFarcaster';
+
 
 function VerifyPage() {
   const router = useRouter();
-
   const { address, isConnected } = useAppKitAccount();
-  const { safeAreaInsets } = useFrame();
+  const { safeAreaInsets, context } = useFrame();
 
   const readContract = useReadContract({
     address: ContractAddress,
@@ -87,7 +86,11 @@ function VerifyPage() {
           </h2>
         </div>
 
-        {/* <ConnectButton /> */}
+        {context ?
+          <ConnectButton />
+          :
+          <ConnectButtonFarcaster />
+        }
 
         {/* {address && <QrWrapper address={address} />} */}
       </div>

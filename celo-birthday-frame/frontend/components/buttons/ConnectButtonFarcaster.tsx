@@ -1,16 +1,28 @@
 import { useState, useCallback } from "react";
 import { signIn, signOut, getCsrfToken } from "next-auth/react";
-import sdk, {
-  SignIn as SignInCore,
-} from "@farcaster/frame-sdk";
 import { useSession } from "next-auth/react";
+import { SignInButton, StatusAPIResponse } from "@farcaster/auth-kit";
 
-function SignIn() {
-  const [signingIn, setSigningIn] = useState(false);
-  const [signingOut, setSigningOut] = useState(false);
-  const [signInResult, setSignInResult] = useState<SignInCore.SignInResult>();
-  const [signInFailure, setSignInFailure] = useState<string>();
+export default function ConnectButtonFarcaster() {
   const { data: session, status } = useSession();
+  const [error, setError] = useState(false);
+
+  const handleSuccess = useCallback(
+    (res: StatusAPIResponse) => {
+      signIn("credentials", {
+        message: res.message,
+        signature: res.signature,
+        name: res.username,
+        pfp: res.pfpUrl,
+        redirect: false,
+      });
+    },
+    []
+  );
+
+  console.log(session);
+  console.log(status);
+
 
   const getNonce = useCallback(async () => {
     const nonce = await getCsrfToken();
@@ -18,53 +30,15 @@ function SignIn() {
     return nonce;
   }, []);
 
-  const handleSignIn = useCallback(async () => {
-    try {
-      setSigningIn(true);
-      setSignInFailure(undefined);
-      const nonce = await getNonce();
-      const result = await sdk.actions.signIn({ nonce });
-      setSignInResult(result);
-
-      await signIn("credentials", {
-        message: result.message,
-        signature: result.signature,
-        redirect: false,
-      });
-    } catch (e) {
-      if (e instanceof SignInCore.RejectedByUser) {
-        setSignInFailure("Rejected by user");
-        return;
-      }
-
-      setSignInFailure("Unknown error");
-    } finally {
-      setSigningIn(false);
-    }
-  }, [getNonce]);
-
-  const handleSignOut = useCallback(async () => {
-    try {
-      setSigningOut(true);
-      await signOut({ redirect: false });
-      setSignInResult(undefined);
-    } finally {
-      setSigningOut(false);
-    }
-  }, []);
-
   return (
     <>
-      {status !== "authenticated" && (
-        <button onClick={handleSignIn} disabled={signingIn}>
-          Sign In with Farcaster
-        </button>
-      )}
-      {status === "authenticated" && (
-        <button onClick={handleSignOut} disabled={signingOut}>
-          Sign out
-        </button>
-      )}
+      <SignInButton
+        nonce={getNonce}
+        onSuccess={handleSuccess}
+        onError={() => setError(true)}
+        onSignOut={() => signOut()}
+      />
+
       {session && (
         <div className="my-2 p-2 text-xs overflow-x-scroll bg-gray-100 rounded-lg font-mono">
           <div className="font-semibold text-gray-500 mb-1">Session</div>
@@ -73,20 +47,7 @@ function SignIn() {
           </div>
         </div>
       )}
-      {signInFailure && !signingIn && (
-        <div className="my-2 p-2 text-xs overflow-x-scroll bg-gray-100 rounded-lg font-mono">
-          <div className="font-semibold text-gray-500 mb-1">SIWF Result</div>
-          <div className="whitespace-pre">{signInFailure}</div>
-        </div>
-      )}
-      {signInResult && !signingIn && (
-        <div className="my-2 p-2 text-xs overflow-x-scroll bg-gray-100 rounded-lg font-mono">
-          <div className="font-semibold text-gray-500 mb-1">SIWF Result</div>
-          <div className="whitespace-pre">
-            {JSON.stringify(signInResult, null, 2)}
-          </div>
-        </div>
-      )}
+
     </>
   );
 }

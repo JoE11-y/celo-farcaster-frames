@@ -12,3 +12,4 @@ export const APP_WEBHOOK_URL =
   process.env.NEYNAR_API_KEY && process.env.NEYNAR_CLIENT_ID
     ? `https://api.neynar.com/f/app/${process.env.NEYNAR_CLIENT_ID}/event`
     : `${APP_URL}/api/webhook`;
+export const RPC_URL = process.env.NEXT_PUBLIC_RPC_URL!;

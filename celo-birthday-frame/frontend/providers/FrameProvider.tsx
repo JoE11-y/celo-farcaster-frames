@@ -97,10 +97,10 @@ export function FrameProvider({ children }: { children: React.ReactNode }) {
 
   if (!frameContext.isSDKLoaded) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center gap-2">
-        <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      <div className="h-screen bg-[#2D0C72] flex flex-col items-center justify-center gap-2">
+        <div className="border-2 border-blue-500 border-t-transparent rounded-full animate-spin" style={{ borderTopColor: "transparent", width: "24px", height: "24px" }}></div>
         Loading...
-      </div>
+      </div >
     );
   }
 

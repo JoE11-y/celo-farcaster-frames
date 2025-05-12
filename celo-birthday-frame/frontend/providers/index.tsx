@@ -9,6 +9,14 @@ import { ApolloWrapper } from '@/apollo/apolloClient';
 import { FrameProvider } from './FrameProvider';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
+import {
+  AuthKitProvider,
+} from "@farcaster/auth-kit";
+
+const config = {
+  relay: "https://relay.farcaster.xyz",
+  domain: "celo-farcaster-frames-six.vercel.app",
+};
 
 // Set up queryClient
 const queryClient = new QueryClient()
@@ -40,15 +48,17 @@ export function Providers({ children, cookies, session }: { children: React.Reac
   const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig as Config, cookies)
   return (
     <SessionProvider session={session}>
-      <ApolloWrapper>
-        <WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>
-          <QueryClientProvider client={queryClient}>
-            <FrameProvider>
-              {children}
-            </FrameProvider>
-          </QueryClientProvider>
-        </WagmiProvider>
-      </ApolloWrapper>
+      <AuthKitProvider config={config}>
+        <ApolloWrapper>
+          <WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>
+            <QueryClientProvider client={queryClient}>
+              <FrameProvider>
+                {children}
+              </FrameProvider>
+            </QueryClientProvider>
+          </WagmiProvider>
+        </ApolloWrapper>
+      </AuthKitProvider>
     </SessionProvider>
   );
 }
