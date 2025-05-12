@@ -1,4 +1,7 @@
-import { setUserNotificationDetails, deleteUserNotificationDetails } from "@/lib/db";
+import {
+  setUserNotificationDetails,
+  deleteUserNotificationDetails,
+} from "@/lib/kv";
 import { sendFrameNotification } from "@/lib/notifications";
 import {
   ParseWebhookEvent,
@@ -8,6 +11,14 @@ import {
 import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
+  // If Neynar is enabled, we don't need to handle webhooks here
+  // as they will be handled by Neynar's webhook endpoint
+  const neynarEnabled =
+    process.env.NEYNAR_API_KEY && process.env.NEYNAR_CLIENT_ID;
+  if (neynarEnabled) {
+    return Response.json({ success: true });
+  }
+
   const requestJson = await request.json();
 
   let data;

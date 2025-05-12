@@ -6,7 +6,9 @@ import { wagmiAdapter, projectId, networks } from '@/lib/config'
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi'
 import { createAppKit } from '@reown/appkit/react'
 import { ApolloWrapper } from '@/apollo/apolloClient';
-import { PostHogProvider } from './PostHog';
+import { FrameProvider } from './FrameProvider';
+import { Session } from 'next-auth';
+import { SessionProvider } from 'next-auth/react';
 
 // Set up queryClient
 const queryClient = new QueryClient()
@@ -34,17 +36,19 @@ export const modal = createAppKit({
 
 })
 
-
-export function Providers({ children, cookies }: { children: React.ReactNode, cookies: string | null }) {
+export function Providers({ children, cookies, session }: { children: React.ReactNode, cookies: string | null, session: Session | null }) {
   const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig as Config, cookies)
   return (
-    // <PostHogProvider client={posthog}>
-    <PostHogProvider>
+    <SessionProvider session={session}>
       <ApolloWrapper>
         <WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>
-          <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+          <QueryClientProvider client={queryClient}>
+            <FrameProvider>
+              {children}
+            </FrameProvider>
+          </QueryClientProvider>
         </WagmiProvider>
       </ApolloWrapper>
-    </PostHogProvider >
+    </SessionProvider>
   );
 }

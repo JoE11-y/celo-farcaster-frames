@@ -10,7 +10,7 @@ import { useReadContract } from "wagmi";
 import { ContractAbi, ContractAddress } from '@/lib/data/abi';
 import { BirthdayRecord } from '@/lib/data/types';
 import { useRouter } from 'next/navigation';
-import { useFrame } from '@/context/FrameContext';
+import { useFrame } from '@/providers/FrameProvider';
 import { useSignIn } from '@/hooks/useSignIn';
 import { useUser } from '@/hooks/useUser';
 
@@ -18,11 +18,7 @@ function VerifyPage() {
   const router = useRouter();
 
   const { address, isConnected } = useAppKitAccount();
-  const { isSDKLoaded, safeAreaInsets } = useFrame();
-
-  const { signIn, logout, isSignedIn, isLoading, error } = useSignIn();
-  const { data: user, refetch: refetchUser } = useUser();
-
+  const { safeAreaInsets } = useFrame();
 
   const readContract = useReadContract({
     address: ContractAddress,
@@ -50,33 +46,24 @@ function VerifyPage() {
     return record;
   }, [readBirthdayRecord]);
 
-  const checkIfUserRegistered = useCallback(async () => {
-    const { data } = await readContract.refetch();
-    if (data) {
-      const record = await getBirthdayRecord();
-      if (record.route == 0) {
-        router.push("/create")
-      } else {
-        router.push(`/birthday/${address}`)
-      }
+  // const checkIfUserRegistered = useCallback(async () => {
+  //   const { data } = await readContract.refetch();
+  //   if (data) {
+  //     const record = await getBirthdayRecord();
+  //     if (record.route == 0) {
+  //       router.push("/create")
+  //     } else {
+  //       router.push(`/birthday/${address}`)
+  //     }
 
-    }
-  }, [address, getBirthdayRecord, readContract, router]);
+  //   }
+  // }, [address, getBirthdayRecord, readContract, router]);
 
-  useEffect(() => {
-    if (isConnected) {
-      checkIfUserRegistered()
-    }
-  }, [isConnected, checkIfUserRegistered])
-
-  if (!isSDKLoaded) {
-    return (
-      <div className="h-screen flex flex-col items-center justify-center gap-2">
-        <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-        Loading...
-      </div>
-    );
-  }
+  // useEffect(() => {
+  //   if (isConnected) {
+  //     checkIfUserRegistered()
+  //   }
+  // }, [isConnected, checkIfUserRegistered])
 
   return (
     <div className="h-screen bg-[#2D0C72] px-6 py-10 overflow-hidden"
@@ -101,14 +88,6 @@ function VerifyPage() {
         </div>
 
         {/* <ConnectButton /> */}
-
-        <button
-          onClick={() => signIn()}
-          disabled={isLoading}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:bg-blue-300"
-        >
-          {isLoading ? "Signing in..." : "Sign in with Farcaster"}
-        </button>
 
         {/* {address && <QrWrapper address={address} />} */}
       </div>

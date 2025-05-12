@@ -1,4 +1,27 @@
 import BirthdayPage from "@/components/birthdays";
+
+import { APP_URL, APP_NAME, APP_DESCRIPTION } from "@/lib/constants";
+import { getFrameEmbedMetadata } from "@/lib/utils";
+import { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: { fid: string } }): Promise<Metadata> {
+  const fid = params.fid;
+  const imageUrl = `${APP_URL}/api/opengraph-image?fid=${fid}`;
+
+  return {
+    title: `${APP_NAME} - Share`,
+    openGraph: {
+      title: APP_NAME,
+      description: APP_DESCRIPTION,
+      images: [imageUrl],
+    },
+    other: {
+      "fc:frame": JSON.stringify(getFrameEmbedMetadata(imageUrl)),
+    },
+  };
+}
+
+
 export default async function Page({
   params,
 }: {
