@@ -10,12 +10,14 @@ import { Project } from "@/apollo/types";
 import { ContractAddress, ContractAbi } from "@/lib/data/abi";
 import { useAppKitAccount } from "@reown/appkit/react";
 import { useReadContract } from "wagmi";
+import { useFrame } from "@/providers/FrameProvider";
 
 export default function DonationsPage() {
   const router = useRouter();
   const [category, setCategory] = useState("");
   const [project, setProject] = useState<Project | null>(null);
   const [steps, setSteps] = useState(0);
+  const { safeAreaInsets } = useFrame();
 
   const { address, isConnected } = useAppKitAccount();
 
@@ -58,7 +60,14 @@ export default function DonationsPage() {
 
   return (
 
-    <div className="min-h-screen bg-[#2D0C72] px-6 py-10  overflow-hidden">
+    <div className="h-screen bg-[#2D0C72] px-6 py-10  overflow-hidden"
+      style={{
+        marginTop: safeAreaInsets.top,
+        marginBottom: safeAreaInsets.bottom,
+        marginLeft: safeAreaInsets.left,
+        marginRight: safeAreaInsets.right,
+      }}
+    >
       <div className="container mx-auto max-w-2xl px-4 py-8 text-center flex flex-col items-center justify-start mt-4 h-screen">
 
         {/* Back Button */}

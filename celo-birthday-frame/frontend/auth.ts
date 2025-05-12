@@ -2,13 +2,15 @@ import { AuthOptions, getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { createAppClient, viemConnector } from "@farcaster/auth-client";
 
-// declare module "next-auth" {
-//   interface Session {
-//     user: {
-//       fid: number;
-//     };
-//   }
-// }
+declare module "next-auth" {
+  interface Session {
+    user: {
+      fid: number;
+      name?: string;
+      image?: string;
+    };
+  }
+}
 
 function getDomainFromUrl(urlString: string | undefined): string {
   if (!urlString) {
@@ -89,14 +91,14 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
-  // callbacks: {
-  //   session: async ({ session, token }) => {
-  //     if (session?.user) {
-  //       session.user.fid = parseInt(token.sub ?? "");
-  //     }
-  //     return session;
-  //   },
-  // },
+  callbacks: {
+    session: async ({ session, token }) => {
+      if (session?.user) {
+        session.user.fid = parseInt(token.sub ?? "");
+      }
+      return session;
+    },
+  },
   // cookies: {
   //   sessionToken: {
   //     name: `next-auth.session-token`,

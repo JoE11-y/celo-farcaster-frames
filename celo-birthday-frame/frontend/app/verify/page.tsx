@@ -11,13 +11,11 @@ import { ContractAbi, ContractAddress } from '@/lib/data/abi';
 import { BirthdayRecord } from '@/lib/data/types';
 import { useRouter } from 'next/navigation';
 import { useFrame } from '@/providers/FrameProvider';
-import ConnectButtonFarcaster from '@/components/buttons/ConnectButtonFarcaster';
-
 
 function VerifyPage() {
   const router = useRouter();
   const { address, isConnected } = useAppKitAccount();
-  const { safeAreaInsets, context } = useFrame();
+  const { safeAreaInsets } = useFrame();
 
   const readContract = useReadContract({
     address: ContractAddress,
@@ -45,24 +43,24 @@ function VerifyPage() {
     return record;
   }, [readBirthdayRecord]);
 
-  // const checkIfUserRegistered = useCallback(async () => {
-  //   const { data } = await readContract.refetch();
-  //   if (data) {
-  //     const record = await getBirthdayRecord();
-  //     if (record.route == 0) {
-  //       router.push("/create")
-  //     } else {
-  //       router.push(`/birthday/${address}`)
-  //     }
+  const checkIfUserRegistered = useCallback(async () => {
+    const { data } = await readContract.refetch();
+    if (data) {
+      const record = await getBirthdayRecord();
+      if (record.route == 0) {
+        router.push("/create")
+      } else {
+        router.push(`/birthday/${address}`)
+      }
 
-  //   }
-  // }, [address, getBirthdayRecord, readContract, router]);
+    }
+  }, [address, getBirthdayRecord, readContract, router]);
 
-  // useEffect(() => {
-  //   if (isConnected) {
-  //     checkIfUserRegistered()
-  //   }
-  // }, [isConnected, checkIfUserRegistered])
+  useEffect(() => {
+    if (isConnected) {
+      checkIfUserRegistered()
+    }
+  }, [isConnected, checkIfUserRegistered])
 
   return (
     <div className="h-screen bg-[#2D0C72] px-6 py-10 overflow-hidden"
@@ -85,14 +83,8 @@ function VerifyPage() {
             Let&apos;s verify
           </h2>
         </div>
-
-        {context ?
-          <ConnectButton />
-          :
-          <ConnectButtonFarcaster />
-        }
-
-        {/* {address && <QrWrapper address={address} />} */}
+        <ConnectButton />
+        {address && <QrWrapper address={address} />}
       </div>
     </div >
   );

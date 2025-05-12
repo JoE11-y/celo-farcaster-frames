@@ -12,10 +12,9 @@ import { SessionProvider } from 'next-auth/react';
 import {
   AuthKitProvider,
 } from "@farcaster/auth-kit";
-
+import { APP_URL } from '@/lib/constants';
 const config = {
   relay: "https://relay.farcaster.xyz",
-  domain: "celo-farcaster-frames-six.vercel.app",
 };
 
 // Set up queryClient
@@ -25,7 +24,7 @@ const queryClient = new QueryClient()
 const metadata = {
   name: 'celo-birthday-frame',
   description: 'celo-birthday-frame',
-  url: 'celo-farcaster-frames-six.vercel.app', // origin must match your domain & subdomain
+  url: APP_URL, // origin must match your domain & subdomain
   icons: ['https://avatars.githubusercontent.com/u/179229932']
 }
 

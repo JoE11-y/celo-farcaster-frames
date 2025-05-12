@@ -7,10 +7,12 @@ import { generateInviteUrl } from "@/lib/helpers";
 import { useReadContract } from "wagmi";
 import { ContractAddress, ContractAbi } from "@/lib/data/abi";
 import { useRouter } from 'next/navigation'
+import { useFrame } from "@/providers/FrameProvider";
 
 export default function SuccessPage() {
   const router = useRouter();
   const { address, isConnected } = useAppKitAccount();
+  const { safeAreaInsets } = useFrame();
 
   const readContract = useReadContract({
     address: ContractAddress,
@@ -58,7 +60,14 @@ export default function SuccessPage() {
   }, [address])
 
   return (
-    <div className="min-h-screen bg-[#2D0C72] px-6 py-10 overflow-hidden">
+    <div className="h-screen bg-[#2D0C72] px-6 py-10 overflow-hidden"
+      style={{
+        marginTop: safeAreaInsets.top,
+        marginBottom: safeAreaInsets.bottom,
+        marginLeft: safeAreaInsets.left,
+        marginRight: safeAreaInsets.right,
+      }}
+    >
       <div className="container mx-auto max-w-2xl px-4 py-8 text-center flex flex-col items-center justify-start">
 
         {/* Check Icon */}

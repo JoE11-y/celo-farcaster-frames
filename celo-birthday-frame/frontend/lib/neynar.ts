@@ -22,7 +22,7 @@ export function getNeynarClient() {
   return neynarClient;
 }
 
-type User = WebhookUserCreated["data"];
+export type User = WebhookUserCreated["data"];
 
 export async function getNeynarUser(fid: number): Promise<User | null> {
   try {
