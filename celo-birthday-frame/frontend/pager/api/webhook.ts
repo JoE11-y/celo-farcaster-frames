@@ -1,7 +1,7 @@
 import {
   setUserNotificationDetails,
   deleteUserNotificationDetails,
-} from "@/lib/db";
+} from "@/lib/kv";
 import { sendFrameNotification } from "@/lib/notifications";
 import {
   ParseWebhookEvent,
