@@ -79,7 +79,7 @@ function VerifyPage() {
             🎉 So It&apos;s your birthday?
           </h1>
 
-          <h2 className="text-[#FFF8C9] text-4xl font-semibold mb-6 text-center ">
+          <h2 className="text-[#FFF8C9] text-2xl font-semibold mb-6 text-cente mt-1 ">
             Let&apos;s verify
           </h2>
         </div>

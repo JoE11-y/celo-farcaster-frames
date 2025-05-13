@@ -30,31 +30,31 @@ export const POST = async (req: NextRequest) => {
     // // const result = await selfdVerifier.verify(proof, publicSignals);
     // // console.log("Verification result:", result);
 
-    const address = await getUserIdentifier(publicSignals, "hex");
-    console.log("Extracted address from verification result:", address);
+    // const address = await getUserIdentifier(publicSignals, "hex");
+    // console.log("Extracted address from verification result:", address);
 
-    // // Connect to Celo network
-    const provider = new ethers.JsonRpcProvider(rpc);
-    const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
-    const contract = new ethers.Contract(ContractAddress, ContractAbi, signer);
+    // // // Connect to Celo network
+    // const provider = new ethers.JsonRpcProvider(rpc);
+    // const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
+    // const contract = new ethers.Contract(ContractAddress, ContractAbi, signer);
 
-    const proofData = {
-      a: proof.a,
-      b: [
-        [proof.b[0][1], proof.b[0][0]],
-        [proof.b[1][1], proof.b[1][0]],
-      ],
-      c: proof.c,
-      pubSignals: publicSignals,
-    };
+    // const proofData = {
+    //   a: proof.a,
+    //   b: [
+    //     [proof.b[0][1], proof.b[0][0]],
+    //     [proof.b[1][1], proof.b[1][0]],
+    //   ],
+    //   c: proof.c,
+    //   pubSignals: publicSignals,
+    // };
 
-    console.log(proofData);
+    // console.log(proofData);
 
     try {
       // VERIFY PROOF
-      const tx = await contract.verifySelfProof(proofData);
-      await tx.wait();
-      console.log("Successfully called verifySelfProof function");
+      // const tx = await contract.verifySelfProof(proofData);
+      // await tx.wait();
+      // console.log("Successfully called verifySelfProof function");
       return NextResponse.json(
         {
           status: "suceess",
