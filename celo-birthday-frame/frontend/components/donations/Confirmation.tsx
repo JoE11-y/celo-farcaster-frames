@@ -1,5 +1,5 @@
 import { Project } from "@/apollo/types";
-import { ContractAbi, ContractAddress } from "@/lib/data/abi";
+import { ContractAbi } from "@/lib/data/abi";
 import { getTokenAddress, Token } from "@/lib/data/token";
 import { projectUrl } from "@/lib/helpers";
 import React, { useCallback, useEffect, useState } from "react";
@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useAppKitAccount } from "@reown/appkit/react";
 import { TransactionLoader } from "../txLoader";
 import { ConnectButton } from "../buttons/ConnectButton";
+import { CONTRACT_ADDRESS, NETWORK } from "@/lib/constants";
 
 type Props = {
   type: "money" | "donation";
@@ -27,12 +28,13 @@ export default function ConfirmationPage({
 }: Props) {
   const { address, isConnected } = useAppKitAccount();
   const [txHash, setTxhash] = useState<Address | "">("");
+  const chainID = NETWORK === "mainnet" ? "42220" : "44787";
 
   const router = useRouter();
   const { writeContract, isSuccess, data } = useWriteContract();
 
   const readContract = useReadContract({
-    address: ContractAddress,
+    address: CONTRACT_ADDRESS,
     abi: ContractAbi,
     functionName: "isCelebrantRegistered",
     args: [address],
@@ -43,13 +45,13 @@ export default function ConfirmationPage({
 
   const handleCreateRecord = () => {
     const route = type == "donation" ? 2 : 1;
-    const tokenAddress = type === "money" && token ? getTokenAddress(token.id, '44787') : zeroAddress;
+    const tokenAddress = type === "money" && token ? getTokenAddress(token.id, chainID) : zeroAddress;
     const donationurl = type === "donation" && project ? projectUrl(project?.slug) : "0";
     const projectId = type === "donation" && project ? project.id : "0";
     const projectCategory = type === "donation" && category ? category : "0";
 
     writeContract({
-      address: ContractAddress,
+      address: CONTRACT_ADDRESS,
       abi: ContractAbi,
       functionName: "createBirthdayRecord",
       args: [
@@ -107,7 +109,7 @@ export default function ConfirmationPage({
                   <p className="text-[#2D0C72] font-semibold">Token Info:</p>
                   <p className="text-[#2D0C72] text-sm">{token.name}</p>
                   <p className="text-[#2D0C72] text-sm">
-                    ({getTokenAddress(token.id, '44787')})
+                    ({getTokenAddress(token.id, chainID)})
                   </p>
                 </div>
               )}

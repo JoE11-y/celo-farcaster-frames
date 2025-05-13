@@ -7,10 +7,11 @@ import {
 } from '@reown/appkit/react'
 import { ConnectButton } from "@/components/buttons/ConnectButton";
 import { useReadContract } from "wagmi";
-import { ContractAbi, ContractAddress } from '@/lib/data/abi';
+import { ContractAbi } from '@/lib/data/abi';
 import { BirthdayRecord } from '@/lib/data/types';
 import { useRouter } from 'next/navigation';
 import { useFrame } from '@/providers/FrameProvider';
+import { CONTRACT_ADDRESS } from '@/lib/constants';
 
 function VerifyPage() {
   const router = useRouter();
@@ -18,7 +19,7 @@ function VerifyPage() {
   const { safeAreaInsets } = useFrame();
 
   const readContract = useReadContract({
-    address: ContractAddress,
+    address: CONTRACT_ADDRESS,
     abi: ContractAbi,
     functionName: "isCelebrantRegistered",
     args: [address],
@@ -28,7 +29,7 @@ function VerifyPage() {
   })
 
   const readBirthdayRecord = useReadContract({
-    address: ContractAddress,
+    address: CONTRACT_ADDRESS,
     abi: ContractAbi,
     functionName: "getBirthdayRecord",
     args: [address],
@@ -79,7 +80,7 @@ function VerifyPage() {
             🎉 So It&apos;s your birthday?
           </h1>
 
-          <h2 className="text-[#FFF8C9] text-2xl font-semibold mb-6 text-cente mt-1 ">
+          <h2 className="text-[#FFF8C9] text-3xl font-semibold mb-4 text-cente mt-3 ">
             Let&apos;s verify
           </h2>
         </div>

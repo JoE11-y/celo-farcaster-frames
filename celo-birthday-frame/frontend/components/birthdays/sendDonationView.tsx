@@ -1,10 +1,11 @@
 import { FETCH_PROJECT_BY_ID } from "@/apollo/gql/gqlProjects";
 import { ProjectByIdQuery } from "@/apollo/types";
-import { ContractAddress, ContractAbi } from "@/lib/data/abi";
+import { ContractAbi } from "@/lib/data/abi";
 import { useQuery } from "@apollo/client";
 import React, { useCallback, useEffect, useState } from "react";
 import { useReadContract } from "wagmi";
 import { useRouter } from "next/navigation";
+import { CONTRACT_ADDRESS } from "@/lib/constants";
 
 export default function BirthdayDonationView({ celebrantAddress, projectId, projectUrl, setStatusFn }:
   {
@@ -20,7 +21,7 @@ export default function BirthdayDonationView({ celebrantAddress, projectId, proj
   const [celebrantName, setCelebrantName] = useState("");
 
   const readCelebrantName = useReadContract({
-    address: ContractAddress,
+    address: CONTRACT_ADDRESS,
     abi: ContractAbi,
     functionName: "getCelebrantName",
     args: [celebrantAddress],

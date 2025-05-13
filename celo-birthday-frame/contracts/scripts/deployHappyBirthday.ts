@@ -15,9 +15,9 @@ async function main() {
   console.log("Calculated future contract address:", futureAddress);
 
   // For testnet environment
-  const identityVerificationHub = "0x3e2487a250e2A7b56c7ef5307Fb591Cc8C83623D";
+  // const identityVerificationHub = "0x3e2487a250e2A7b56c7ef5307Fb591Cc8C83623D";
   // For mainnet environment
-  // const identityVerificationHub = "0x77117D60eaB7C044e785D68edB6C7E0e134970Ea";
+  const identityVerificationHub = "0x77117D60eaB7C044e785D68edB6C7E0e134970Ea";
 
   const scope = hashEndpointWithScope(
     "https://celo-farcaster-frames-six.vercel.app/api/verify",
@@ -60,7 +60,7 @@ async function main() {
 
   console.log("To verify on Celoscan:");
   console.log(
-    `npx hardhat verify --network alfajores ${deployedAddress} ${identityVerificationHub} ${scope} ${attestationId} ${olderThanEnabled} ${olderThan} ${forbiddenCountriesEnabled} "[${forbiddenCountriesListPacked.join(
+    `npx hardhat verify --network <network> ${deployedAddress} ${identityVerificationHub} ${scope} ${attestationId} ${olderThanEnabled} ${olderThan} ${forbiddenCountriesEnabled} "[${forbiddenCountriesListPacked.join(
       ","
     )}]" "[${ofacEnabled.join(",")}]"`
   );

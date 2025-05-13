@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 
 export default function QrWrapper({ address }: { address: string }) {
   const router = useRouter();
+
   const selfApp = new SelfAppBuilder({
     appName: "Celo Birthday Frame",
     scope: "Celo-Birthday-Frame",
@@ -19,14 +20,14 @@ export default function QrWrapper({ address }: { address: string }) {
       date_of_birth: true,
       name: true
     },
-    devMode: true,
+    devMode: false,
   } as Partial<SelfApp>).build();
 
   const handleSuccess = async () => {
     console.log('Verification successful');
     setTimeout(() => {
       router.push(`/create`)
-    }, 3000)
+    }, 2000)
   };
 
   return (

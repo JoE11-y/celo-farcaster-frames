@@ -1,5 +1,5 @@
 import { Address, parseUnits } from "viem";
-import { ContractAddress, ContractAbi, IERC20Abi } from "@/lib/data/abi";
+import { ContractAbi, IERC20Abi } from "@/lib/data/abi";
 import { getTokenByAddress } from "@/lib/data/token";
 import React, { useCallback, useEffect, useState } from "react";
 import { useReadContract, useWriteContract } from "wagmi";
@@ -7,7 +7,7 @@ import { TokenIcon } from "../tokens/TokenIcon";
 import { useAppKitAccount } from "@reown/appkit/react";
 import { ConnectButton } from "../buttons/ConnectButton";
 import { TransactionLoader } from "../txLoader";
-import { rest } from "lodash";
+import { CONTRACT_ADDRESS } from "@/lib/constants";
 
 export default function SendMoneyView({ celebrantAddress, token, setStatusFn }:
   {
@@ -25,7 +25,7 @@ export default function SendMoneyView({ celebrantAddress, token, setStatusFn }:
   const { isConnected } = useAppKitAccount();
 
   const readCelebrantName = useReadContract({
-    address: ContractAddress,
+    address: CONTRACT_ADDRESS,
     abi: ContractAbi,
     functionName: "getCelebrantName",
     args: [celebrantAddress],
@@ -66,7 +66,7 @@ export default function SendMoneyView({ celebrantAddress, token, setStatusFn }:
       abi: IERC20Abi,
       functionName: "approve",
       args: [
-        ContractAddress,
+        CONTRACT_ADDRESS,
         finalAmount
       ],
     });
@@ -78,7 +78,7 @@ export default function SendMoneyView({ celebrantAddress, token, setStatusFn }:
       return
     }
     writeContract({
-      address: ContractAddress,
+      address: CONTRACT_ADDRESS,
       abi: ContractAbi,
       functionName: "sendBirthdayGift",
       args: [

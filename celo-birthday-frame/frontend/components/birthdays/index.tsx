@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from "react";
-import { ContractAddress, ContractAbi } from "@/lib/data/abi";
+import { ContractAbi } from "@/lib/data/abi";
 import { useCallback, useEffect } from "react";
 import { useReadContract } from "wagmi";
 import { BirthdayRecord } from "@/lib/data/types";
@@ -8,6 +8,7 @@ import BirthdayDonationView from "./sendDonationView";
 import SendMoneyView from "./sendMoneyView";
 import DonationSuccessPage from "./Success";
 import { useRouter } from "next/navigation";
+import { CONTRACT_ADDRESS } from "@/lib/constants";
 
 export default function BirthdayPage({ address }: { address: string }) {
   const router = useRouter();
@@ -15,7 +16,7 @@ export default function BirthdayPage({ address }: { address: string }) {
   const [transactionSuccess, setTransactionSuccess] = useState(false);
 
   const readContract2 = useReadContract({
-    address: ContractAddress,
+    address: CONTRACT_ADDRESS,
     abi: ContractAbi,
     functionName: "getBirthdayRecord",
     args: [address],

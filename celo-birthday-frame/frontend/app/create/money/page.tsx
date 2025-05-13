@@ -6,10 +6,11 @@ import ConfirmationPage from "@/components/donations/Confirmation";
 import { Token } from "@/lib/data/token";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from 'next/navigation'
-import { ContractAddress, ContractAbi } from "@/lib/data/abi";
+import { ContractAbi } from "@/lib/data/abi";
 import { useAppKitAccount } from "@reown/appkit/react";
 import { useReadContract } from "wagmi";
 import { useFrame } from "@/providers/FrameProvider";
+import { CONTRACT_ADDRESS } from "@/lib/constants";
 
 export default function MoneyPage() {
   const router = useRouter();
@@ -21,7 +22,7 @@ export default function MoneyPage() {
   const { address, isConnected } = useAppKitAccount();
 
   const readContract = useReadContract({
-    address: ContractAddress,
+    address: CONTRACT_ADDRESS,
     abi: ContractAbi,
     functionName: "isCelebrantRegistered",
     args: [address],

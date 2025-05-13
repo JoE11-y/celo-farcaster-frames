@@ -1,10 +1,11 @@
 'use client'
 import React, { useCallback, useEffect } from "react";
 import { useRouter } from 'next/navigation'
-import { ContractAddress, ContractAbi } from "@/lib/data/abi";
+import { ContractAbi } from "@/lib/data/abi";
 import { useAppKitAccount } from "@reown/appkit/react";
 import { useReadContract } from "wagmi";
 import { useFrame } from "@/providers/FrameProvider";
+import { CONTRACT_ADDRESS } from "@/lib/constants";
 
 
 export default function BirthdayCard() {
@@ -13,7 +14,7 @@ export default function BirthdayCard() {
   const { safeAreaInsets } = useFrame();
 
   const readContract = useReadContract({
-    address: ContractAddress,
+    address: CONTRACT_ADDRESS,
     abi: ContractAbi,
     functionName: "isCelebrantRegistered",
     args: [address],

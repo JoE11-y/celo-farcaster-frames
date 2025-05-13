@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { CheckCircle2 } from "lucide-react";
-import { ContractAddress, ContractAbi } from "@/lib/data/abi";
+import { ContractAbi } from "@/lib/data/abi";
 import { useReadContract } from "wagmi";
+import { CONTRACT_ADDRESS } from "@/lib/constants";
 
 export default function DonationSuccessPage({ celebrantAddress }: { celebrantAddress: string }) {
   const [celebrantName, setCelebrantName] = useState("");
 
   const readCelebrantName = useReadContract({
-    address: ContractAddress,
+    address: CONTRACT_ADDRESS,
     abi: ContractAbi,
     functionName: "getCelebrantName",
     args: [celebrantAddress],

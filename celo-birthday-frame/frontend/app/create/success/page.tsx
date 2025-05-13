@@ -5,9 +5,10 @@ import QRCode from "react-qr-code";
 import { useAppKitAccount } from "@reown/appkit/react";
 import { generateInviteUrl } from "@/lib/helpers";
 import { useReadContract } from "wagmi";
-import { ContractAddress, ContractAbi } from "@/lib/data/abi";
+import { ContractAbi } from "@/lib/data/abi";
 import { useRouter } from 'next/navigation'
 import { useFrame } from "@/providers/FrameProvider";
+import { CONTRACT_ADDRESS } from "@/lib/constants";
 
 export default function SuccessPage() {
   const router = useRouter();
@@ -15,7 +16,7 @@ export default function SuccessPage() {
   const { safeAreaInsets } = useFrame();
 
   const readContract = useReadContract({
-    address: ContractAddress,
+    address: CONTRACT_ADDRESS,
     abi: ContractAbi,
     functionName: "isCelebrantRegistered",
     args: [address],
