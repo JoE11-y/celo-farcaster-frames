@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getUserIdentifier, SelfBackendVerifier } from "@selfxyz/core";
 import { ethers } from "ethers";
 import { ContractAbi } from "@/lib/data/abi";
-import { CONTRACT_ADDRESS } from "@/lib/constants";
+import { CONTRACT_ADDRESS, RPC_URL } from "@/lib/constants";
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -17,8 +17,6 @@ export const POST = async (req: NextRequest) => {
 
     // console.log("Proof:", proof);
     // console.log("Public signals:", publicSignals);
-
-    const rpc = process.env.NEXT_PUBLIC_RPC_URL as string;
 
     // // Uncomment this to use the Self backend verifier for offchain verification instead
     // // const selfdVerifier = new SelfBackendVerifier(
@@ -35,7 +33,7 @@ export const POST = async (req: NextRequest) => {
     console.log("Extracted address from verification result:", address);
 
     // // Connect to Celo network
-    const provider = new ethers.JsonRpcProvider(rpc);
+    const provider = new ethers.JsonRpcProvider(RPC_URL);
     const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
     const contract = new ethers.Contract(CONTRACT_ADDRESS, ContractAbi, signer);
 
